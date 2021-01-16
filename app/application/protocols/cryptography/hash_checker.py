@@ -2,7 +2,7 @@ from typing import Protocol
 from abc import abstractmethod
 
 
-class HashComparer(Protocol):
+class HashChecker(Protocol):
     @abstractmethod
-    def compare(self, value_hash: str, value: str) -> bool:
+    def check(self, value_hash: str, value: str) -> bool:
         raise NotImplemented
