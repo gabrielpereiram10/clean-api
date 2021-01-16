@@ -1,16 +1,16 @@
 from app.domain.usecases.auth import AuthenticationUseCase
 
 from app.application.models.user import AuthInputModel
+from app.application.protocols.cryptography.encrypter import Encrypter
 
 from app.presentation.protocols.controller import Controller
-from app.presentation.protocols.token_generator import TokenGenerator
 from app.presentation.protocols.http import HttpResponse, HttpRequest
 
 
 class AuthenticationController(Controller):
-    def __init__(self, use_case: AuthenticationUseCase, token: TokenGenerator):
+    def __init__(self, use_case: AuthenticationUseCase, encrypter: Encrypter):
         self._use_case = use_case
-        self._token = token
+        self._encrypter = encrypter
 
     def handle(self, req: HttpRequest) -> HttpResponse:
         try:
@@ -18,7 +18,7 @@ class AuthenticationController(Controller):
             is_authenticated = self._use_case.authenticate(data.email, data.password)
             if is_authenticated:
                 token = {
-                    'access_token': self._token.generate(data.email)
+                    'access_token': self._encrypter.encrypt(data.email)
                     # 'refresh_token': self._token.create_refresh(user.email)
                 }
                 return token, 200

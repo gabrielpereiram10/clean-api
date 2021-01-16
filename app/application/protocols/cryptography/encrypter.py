@@ -2,7 +2,7 @@ from typing import Protocol
 from abc import abstractmethod
 
 
-class TokenGenerator(Protocol):
+class Encrypter(Protocol):
     @abstractmethod
-    def generate(self, identity: str) -> str:
+    def encrypt(self, value: str) -> str:
         raise NotImplemented
