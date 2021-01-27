@@ -1,5 +1,5 @@
-from app.domain.entities.email import Email
-from app.domain.entities.password import Password
+from app.domain.value_objects.email import Email
+from app.domain.value_objects.password import Password
 from app.domain.usecases.auth import AuthenticationUseCase
 
 from app.application.protocols.user_repository import UserRepository
